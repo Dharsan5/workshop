@@ -1,12 +1,8 @@
 import { useState } from 'react'
-// import PasswordGenerator from './PasswordGenerator'
 import './Auth.css'
 
 const Auth = ({ onLogin }) => {
-  console.log('Auth component rendered')
-  
   const [isLogin, setIsLogin] = useState(true)
-  const [showGenerator, setShowGenerator] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -22,7 +18,6 @@ const Auth = ({ onLogin }) => {
       ...prev,
       [name]: value
     }))
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -31,39 +26,26 @@ const Auth = ({ onLogin }) => {
     }
   }
 
-  const handlePasswordGenerated = (generatedPassword) => {
-    setFormData(prev => ({
-      ...prev,
-      password: generatedPassword,
-      confirmPassword: isLogin ? prev.confirmPassword : generatedPassword
-    }))
-    setShowGenerator(false)
-  }
-
   const validateForm = () => {
     const newErrors = {}
-
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    
     if (!formData.email) {
       newErrors.email = 'Email is required'
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Please enter a valid email'
     }
 
-    // Password validation
     if (!formData.password) {
       newErrors.password = 'Password is required'
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters'
     }
 
-    // Name validation for signup
     if (!isLogin && !formData.name) {
       newErrors.name = 'Name is required'
     }
 
-    // Confirm password validation for signup
     if (!isLogin) {
       if (!formData.confirmPassword) {
         newErrors.confirmPassword = 'Please confirm your password'
@@ -86,32 +68,22 @@ const Auth = ({ onLogin }) => {
     setIsLoading(true)
 
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500))
       
       if (isLogin) {
-        // Handle login logic here
         const userData = {
-          name: 'User', // In a real app, this would come from the API
+          name: 'User',
           email: formData.email
         }
-        console.log('Login attempt:', { email: formData.email, password: formData.password })
         onLogin(userData)
       } else {
-        // Handle signup logic here
         const userData = {
           name: formData.name,
           email: formData.email
         }
-        console.log('Signup attempt:', {
-          name: formData.name,
-          email: formData.email,
-          password: formData.password
-        })
         onLogin(userData)
       }
 
-      // Reset form
       setFormData({
         email: '',
         password: '',
@@ -135,7 +107,6 @@ const Auth = ({ onLogin }) => {
       name: ''
     })
     setErrors({})
-    setShowGenerator(false)
   }
 
   return (
@@ -184,18 +155,6 @@ const Auth = ({ onLogin }) => {
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            {/* <div className="password-label">
-              <label htmlFor="password">Password</label>
-              {!isLogin && (
-                <button 
-                  type="button"
-                  onClick={() => setShowGenerator(true)}
-                  className="generate-password-btn"
-                >
-                  🔑 Generate
-                </button>
-              )}
-            </div> */
             <input
               type="password"
               id="password"

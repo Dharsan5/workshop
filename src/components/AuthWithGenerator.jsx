@@ -1,10 +1,8 @@
 import { useState } from 'react'
-// import PasswordGenerator from './PasswordGenerator'
+import PasswordGenerator from './PasswordGenerator'
 import './Auth.css'
 
 const Auth = ({ onLogin }) => {
-  console.log('Auth component rendered')
-  
   const [isLogin, setIsLogin] = useState(true)
   const [showGenerator, setShowGenerator] = useState(false)
   const [formData, setFormData] = useState({
@@ -151,6 +149,23 @@ const Auth = ({ onLogin }) => {
           }
         </p>
 
+        {showGenerator && (
+          <div className="generator-modal">
+            <div className="generator-content">
+              <div className="generator-header">
+                <h3>Generate Strong Password</h3>
+                <button 
+                  onClick={() => setShowGenerator(false)}
+                  className="close-btn"
+                >
+                  ✕
+                </button>
+              </div>
+              <PasswordGenerator onPasswordGenerated={handlePasswordGenerated} />
+            </div>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="auth-form">
           {!isLogin && (
             <div className="form-group">
@@ -183,8 +198,7 @@ const Auth = ({ onLogin }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
-            {/* <div className="password-label">
+            <div className="password-label">
               <label htmlFor="password">Password</label>
               {!isLogin && (
                 <button 
@@ -195,7 +209,7 @@ const Auth = ({ onLogin }) => {
                   🔑 Generate
                 </button>
               )}
-            </div> */
+            </div>
             <input
               type="password"
               id="password"
