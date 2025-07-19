@@ -100,58 +100,56 @@ const Dashboard = ({ user, onLogout }) => {
         </div>
 
         <main className="dashboard-main">
-          {activeTab === 'overview' && (
-            <>
-              <div className="welcome-card">
-                <h2>Welcome to your Dashboard</h2>
-                <p>Secure password management made simple. Generate strong passwords and store them safely.</p>
-              </div>
+          <div className={`tab-content ${activeTab === 'overview' ? 'active' : ''}`}>
+            <div className="welcome-card">
+              <h2>Welcome to your Dashboard</h2>
+              <p>Secure password management made simple. Generate strong passwords and store them safely.</p>
+            </div>
 
-              <div className="stats-grid">
-                <div className="stat-card" onClick={() => setActiveTab('generator')} style={{ cursor: 'pointer' }}>
-                  <div className="stat-icon">🔑</div>
-                  <div className="stat-content">
-                    <h3>Password Generator</h3>
-                    <p>Create strong, secure passwords</p>
-                  </div>
-                </div>
-
-                <div className="stat-card" onClick={() => setActiveTab('manager')} style={{ cursor: 'pointer' }}>
-                  <div className="stat-icon">🔐</div>
-                  <div className="stat-content">
-                    <h3>Password Manager</h3>
-                    <p>Store and manage your passwords</p>
-                  </div>
-                </div>
-
-                <div className="stat-card" onClick={() => setActiveTab('security')} style={{ cursor: 'pointer' }}>
-                  <div className="stat-icon">🛡️</div>
-                  <div className="stat-content">
-                    <h3>Security</h3>
-                    <p>Keep your accounts secure</p>
-                  </div>
-                </div>
-
-                <div className="stat-card" onClick={() => setActiveTab('analytics')} style={{ cursor: 'pointer' }}>
-                  <div className="stat-icon">📊</div>
-                  <div className="stat-content">
-                    <h3>Analytics</h3>
-                    <p>Track password strength</p>
-                  </div>
+            <div className="stats-grid">
+              <div className="stat-card" onClick={() => setActiveTab('generator')} style={{ cursor: 'pointer' }}>
+                <div className="stat-icon">🔑</div>
+                <div className="stat-content">
+                  <h3>Password Generator</h3>
+                  <p>Create strong, secure passwords</p>
                 </div>
               </div>
-            </>
-          )}
 
-          {activeTab === 'generator' && (
+              <div className="stat-card" onClick={() => setActiveTab('manager')} style={{ cursor: 'pointer' }}>
+                <div className="stat-icon">🔐</div>
+                <div className="stat-content">
+                  <h3>Password Manager</h3>
+                  <p>Store and manage your passwords</p>
+                </div>
+              </div>
+
+              <div className="stat-card" onClick={() => setActiveTab('security')} style={{ cursor: 'pointer' }}>
+                <div className="stat-icon">🛡️</div>
+                <div className="stat-content">
+                  <h3>Security</h3>
+                  <p>Keep your accounts secure</p>
+                </div>
+              </div>
+
+              <div className="stat-card" onClick={() => setActiveTab('analytics')} style={{ cursor: 'pointer' }}>
+                <div className="stat-icon">📊</div>
+                <div className="stat-content">
+                  <h3>Analytics</h3>
+                  <p>Track password strength</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={`tab-content ${activeTab === 'generator' ? 'active' : ''}`}>
             <PasswordGenerator />
-          )}
+          </div>
 
-          {activeTab === 'manager' && (
+          <div className={`tab-content ${activeTab === 'manager' ? 'active' : ''}`}>
             <PasswordManager />
-          )}
+          </div>
 
-          {activeTab === 'security' && (
+          <div className={`tab-content ${activeTab === 'security' ? 'active' : ''}`}>
             <div className="security-section">
               <div className="welcome-card">
                 <h2>Security Overview</h2>
@@ -212,9 +210,9 @@ const Dashboard = ({ user, onLogout }) => {
                 </ul>
               </div>
             </div>
-          )}
+          </div>
 
-          {activeTab === 'analytics' && (
+          <div className={`tab-content ${activeTab === 'analytics' ? 'active' : ''}`}>
             <div className="analytics-section">
               <div className="welcome-card">
                 <h2>Password Analytics</h2>
@@ -229,32 +227,32 @@ const Dashboard = ({ user, onLogout }) => {
                       const passwords = JSON.parse(localStorage.getItem('savedPasswords') || '[]');
                       const strong = passwords.filter(p => {
                         let score = 0;
-                        if (p.password.length >= 8) score += 1;
-                        if (p.password.length >= 12) score += 1;
-                        if (/[a-z]/.test(p.password)) score += 1;
-                        if (/[A-Z]/.test(p.password)) score += 1;
-                        if (/[0-9]/.test(p.password)) score += 1;
-                        if (/[^A-Za-z0-9]/.test(p.password)) score += 1;
+                        if (p.password && p.password.length >= 8) score += 1;
+                        if (p.password && p.password.length >= 12) score += 1;
+                        if (p.password && /[a-z]/.test(p.password)) score += 1;
+                        if (p.password && /[A-Z]/.test(p.password)) score += 1;
+                        if (p.password && /[0-9]/.test(p.password)) score += 1;
+                        if (p.password && /[^A-Za-z0-9]/.test(p.password)) score += 1;
                         return score > 4;
                       }).length;
                       const medium = passwords.filter(p => {
                         let score = 0;
-                        if (p.password.length >= 8) score += 1;
-                        if (p.password.length >= 12) score += 1;
-                        if (/[a-z]/.test(p.password)) score += 1;
-                        if (/[A-Z]/.test(p.password)) score += 1;
-                        if (/[0-9]/.test(p.password)) score += 1;
-                        if (/[^A-Za-z0-9]/.test(p.password)) score += 1;
+                        if (p.password && p.password.length >= 8) score += 1;
+                        if (p.password && p.password.length >= 12) score += 1;
+                        if (p.password && /[a-z]/.test(p.password)) score += 1;
+                        if (p.password && /[A-Z]/.test(p.password)) score += 1;
+                        if (p.password && /[0-9]/.test(p.password)) score += 1;
+                        if (p.password && /[^A-Za-z0-9]/.test(p.password)) score += 1;
                         return score <= 4 && score > 2;
                       }).length;
                       const weak = passwords.filter(p => {
                         let score = 0;
-                        if (p.password.length >= 8) score += 1;
-                        if (p.password.length >= 12) score += 1;
-                        if (/[a-z]/.test(p.password)) score += 1;
-                        if (/[A-Z]/.test(p.password)) score += 1;
-                        if (/[0-9]/.test(p.password)) score += 1;
-                        if (/[^A-Za-z0-9]/.test(p.password)) score += 1;
+                        if (p.password && p.password.length >= 8) score += 1;
+                        if (p.password && p.password.length >= 12) score += 1;
+                        if (p.password && /[a-z]/.test(p.password)) score += 1;
+                        if (p.password && /[A-Z]/.test(p.password)) score += 1;
+                        if (p.password && /[0-9]/.test(p.password)) score += 1;
+                        if (p.password && /[^A-Za-z0-9]/.test(p.password)) score += 1;
                         return score <= 2;
                       }).length;
                       
@@ -282,7 +280,7 @@ const Dashboard = ({ user, onLogout }) => {
                   <h3>Recent Activity</h3>
                   <div className="activity-list">
                     {JSON.parse(localStorage.getItem('savedPasswords') || '[]')
-                      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+                      .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))
                       .slice(0, 5)
                       .map(password => (
                         <div key={password.id} className="activity-item">
@@ -301,7 +299,7 @@ const Dashboard = ({ user, onLogout }) => {
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </main>
       </div>
     </div>
