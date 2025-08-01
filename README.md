@@ -1,8 +1,14 @@
-link : password4.netlify.app
+# Password Manager and Generator
 
-hosted in netlifyapp
+A secure password manager and generator built with React and Vite.
 
-# React + Vite
+## 🌐 Live Demo
+
+The application is hosted on Netlify: [password4.netlify.app](https://password4.netlify.app)
+
+## ⚡ Tech Stack
+
+Built with React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
